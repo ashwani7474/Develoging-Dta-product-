@@ -1,39 +1,34 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
-
 library(shiny)
-shinyUI(pageWithSidebar(
-  headerPanel("Investment Property"),
-  sidebarPanel(
-    h4('Property'),
-    textInput('text', 'Address', value=''),
-    numericInput('price', 'Price ($)', 550000),
-    numericInput('weeklyRent', 'Weekly Rent ($)', 550),
-    h5('Costs'),
-    numericInput('weeklyRepayments', 'Weekly Repayments ($ per week)', 503),
-    numericInput('waterPerQuarter', 'Water ($ per quarter)', 180),
-    numericInput('managementFees', 'Management Fees ($ per week)', 38)
-  ),
-  mainPanel(
-    h4('Rental Yield (%)'),
-    textOutput("rentalYield"),
-    h4('Cashflow Per Week ($)'),
-    textOutput("cashflowPerWeek"),
-    h4('Cashflow Per Year ($)'),
-    textOutput("cashflowPerYear"),
-    br(),
-    h4('Instructions'),
-    helpText("This application is for designed to allow investors to calculate the potential rental yield of a property and estimate the cashflow of owning the property."),
-    code("Rental Yield"),
-    helpText("Enter the property's price and expected weekly rent to calculate the rental yield."),
-    code("Cashflow"),
-    helpText("Enter the property's costs to estimate the cashflow of owning the property.")
+
+# Define UI for application that draws a Histogram of MPG
+shinyUI(fluidPage(
+  
+  # Application title
+  titlePanel("MTCars Data - Regression analysis of different dimensions of the Dataset"),
+  
+  # Sidebar with a slider input for value of MPG 
+  sidebarLayout(
+    sidebarPanel(
+      
+      selectInput("variable2", "Select the FIRST dimension to carry out linear regression against:",
+                  choices = c("Miles per Gallon" = "mpg",
+                              "Horse Power" = "hp"),
+                  selected = "mpg"),
+      
+      selectInput("variable1", "Select the second dimension to for the linear regression:",
+                  choices = c("Cylinders" = "cyl",
+                              "Transmission" = "am",
+                              "Gears" = "gear"),
+                  selected = "cyl"),
+      
+      checkboxInput("Abline", "Draw AB Line", TRUE)
+      
+      
+    ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("distPlot")
+    )
   )
 ))
